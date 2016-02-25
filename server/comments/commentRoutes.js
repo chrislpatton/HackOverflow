@@ -6,37 +6,37 @@ var Comment    = require('./commentModel.js');
 module.exports = function (app) {
 
 app.param('comment', function (req, res, next, id) {
-	var query = Comment.findById(id);
+  var query = Comment.findById(id);
 
-	query.exec(function (err, comment) {
-		if (err) { 
+  query.exec(function (err, comment) {
+    if (err) { 
       return next(err); 
     }
-		
+    
     if (!comment) { 
       return next(new Error("can't find comment")); 
     }
 
-		req.comment = comment;
-		return next();
-	});
+    req.comment = comment;
+    return next();
+  });
 });
-	// Map logic to route parameter 'post'
+  // Map logic to route parameter 'post'
 app.param('post', function (req, res, next, id) {
-	var query = Post.findById(id);
+  var query = Post.findById(id);
 
-	query.exec(function (err, post) {
-		if (err) { 
+  query.exec(function (err, post) {
+    if (err) { 
       return next(err); 
     }
-		
+    
     if (!post) { 
       return next(new Error("can't find post")); 
     }
 
-		req.post = post;
-		return next();
-	});
+    req.post = post;
+    return next();
+  });
 });
 
     app.get('/:post/comments', commentController.getComments);
